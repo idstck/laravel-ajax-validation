@@ -62,6 +62,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
+            <li class=""><a href="{{ route('user.index') }}">User</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>

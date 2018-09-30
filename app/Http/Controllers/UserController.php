@@ -25,7 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $model = new User();
+        return view('pages.user.form', compact('model'));
     }
 
     /**

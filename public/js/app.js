@@ -6,7 +6,7 @@ $('body').on('click', '.modal-show', function (event) {
         title = me.attr('title');
 
     $('#modal-title').text(title);
-    $('#modal-btn-save').text('Create');
+    $('#modal-btn-save').text(me.hasClass('edit') ? 'Update' : 'Create');
 
     $.ajax({
         url: url,
@@ -36,7 +36,7 @@ $('#modal-btn-save').click(function (event) {
         success: function (response) {
             form.trigger('reset');
             $('#modal').modal('hide');
-            $('#datatables').DataTable().ajax.reload();
+            $('#datatable').DataTable().ajax.reload();
 
             swal({
                 type : 'success',

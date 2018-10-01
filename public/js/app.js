@@ -57,3 +57,48 @@ $('#modal-btn-save').click(function (event) {
         }
     })
 });
+
+$('body').on('click', '.btn-delete', function (event) {
+    event.preventDefault();
+
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title'),
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+    swal({
+        title: 'Are you sure want to delete ' + title + ' ?',
+        text: 'You won\'t be able to revert this!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                    '_method': 'DELETE',
+                    '_token': csrf_token
+                },
+                success: function (response) {
+                    $('#datatable').DataTable().ajax.reload();
+                    swal({
+                        type: 'success',
+                        title: 'Success!',
+                        text: 'Data has been deleted!'
+                    });
+                },
+                error: function (xhr) {
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    });
+                }
+            });
+        }
+    });
+});

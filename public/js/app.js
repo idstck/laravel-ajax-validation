@@ -6,7 +6,8 @@ $('body').on('click', '.modal-show', function (event) {
         title = me.attr('title');
 
     $('#modal-title').text(title);
-    $('#modal-btn-save').text(me.hasClass('edit') ? 'Update' : 'Create');
+    $('#modal-btn-save').removeClass('hide')
+    .text(me.hasClass('edit') ? 'Update' : 'Create');
 
     $.ajax({
         url: url,
@@ -101,4 +102,25 @@ $('body').on('click', '.btn-delete', function (event) {
             });
         }
     });
+});
+
+$('body').on('click', '.btn-show', function (event) {
+    event.preventDefault();
+
+    var me = $(this),
+        url = me.attr('href'),
+        title = me.attr('title');
+
+    $('#modal-title').text(title);
+    $('#modal-btn-save').addClass('hide');
+
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function (response) {
+            $('#modal-body').html(response);
+        }
+    });
+
+    $('#modal').modal('show');
 });
